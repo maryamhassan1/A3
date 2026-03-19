@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap');
+
 :root {
     --bg:     #ffffff;
     --card:   #f4f6f9;
@@ -11,7 +13,7 @@
 
 body {
     background: var(--bg);
-    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-family: 'Barlow', system-ui, sans-serif;
     color: var(--text);
     min-height: 100vh;
     display: flex;
@@ -23,12 +25,13 @@ body {
 }
 
 h1 {
-    font-size: 22px;
-    letter-spacing: 3.5px;
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-size: 30px;
+    letter-spacing: 4px;
     text-transform: uppercase;
     color: #cc0000;
     margin-bottom: 20px;
-    font-weight: 700;
+    font-weight: 800;
     text-align: center;
     width: 100%;
 }
@@ -73,8 +76,9 @@ h1 {
 /* ── ROUND HEADERS ── */
 .round-hdr {
     text-align: center;
-    font-size: 13px;
-    letter-spacing: 2px;
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-size: 15px;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
     color: #111111;
     font-weight: 700;
@@ -103,8 +107,9 @@ h1 {
 .team-row:hover:not(.empty):not(.no-click) { background: rgba(0,0,0,0.04); }
 
 .team-label {
-    font-size: 13px;
-    font-weight: 600;
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
     flex: 1;
     white-space: nowrap;
     overflow: hidden;
@@ -214,8 +219,171 @@ h1 {
 /* ── CONFETTI ── */
 #confetti-canvas {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 9998;
 }
+
+/* ── STATS PANEL ── */
+#stats-panel {
+    position: fixed;
+    top: 0;
+    right: -340px;
+    width: 300px;
+    height: 100vh;
+    background: #ffffff;
+    border-left: 1px solid #dde3ed;
+    border-top: 4px solid #cc0000;
+    padding: 22px 20px;
+    overflow-y: auto;
+    z-index: 1000;
+    transition: right 0.35s cubic-bezier(.25,.8,.25,1);
+    box-shadow: -6px 0 24px rgba(0,0,0,0.08);
+    box-sizing: border-box;
+}
+
+#stats-panel.open {
+    right: 0;
+}
+
+#stats-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: #9aaabb;
+    font-size: 15px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 6px;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+    font-family: 'Barlow', sans-serif;
+}
+#stats-close:hover { color: #1a2535; background: #f4f6f9; }
+
+#stats-header {
+    margin-bottom: 18px;
+    padding-right: 28px;
+}
+
+#stats-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #1a2535;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+#stats-country {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    color: #9aaabb;
+    margin-top: 3px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+/* Stat Badges */
+#stats-titles-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 22px;
+}
+
+.stat-badge {
+    flex: 1;
+    background: #f4f6f9;
+    border-radius: 8px;
+    padding: 10px 6px;
+    text-align: center;
+    border: 1px solid #dde3ed;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.badge-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: #1a2535;
+    line-height: 1;
+}
+
+.badge-lbl {
+    font-family: 'Barlow', sans-serif;
+    font-size: 9px;
+    color: #9aaabb;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+/* Section titles */
+.stats-section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #9aaabb;
+    margin: 18px 0 8px;
+    border-bottom: 1px solid #dde3ed;
+    padding-bottom: 5px;
+    font-weight: 700;
+}
+
+/* Text content */
+#stats-r16 {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    color: #1a2535;
+    line-height: 1.5;
+}
+
+#stats-player {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a2535;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Charts */
+#wdl-chart svg, #goals-chart svg {
+    overflow: visible;
+}
+
+/* R16 rows with stats clickable */
+.team-row.has-stats {
+    cursor: pointer;
+}
+.team-row.has-stats:hover .team-label {
+    text-decoration: underline;
+    text-decoration-color: rgba(0,0,0,0.2);
+}
+
+/* Info button */
+.info-btn {
+    background: none;
+    border: none;
+    color: #9aaabb;
+    font-size: 13px;
+    cursor: pointer;
+    margin-left: auto;
+    padding: 0 2px;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.2s, color 0.2s;
+    flex-shrink: 0;
+    font-family: sans-serif;
+}
+.team-row:hover .info-btn { opacity: 1; }
+.info-btn:hover { color: #cc0000; }
