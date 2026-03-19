@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UCL 2025-26 Bracket Predictor</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>UEFA Champions League Bracket Predictor 2025-2026</h1>
+
+<div class="bracket-wrap">
+    <svg class="connectors" id="connSvg"></svg>
+    <div class="bracket-grid">
+        <div class="round-hdr">Round of 16</div>
+        <div class="round-hdr">Quarter-finals</div>
+        <div class="round-hdr">Semi-finals</div>
+        <div class="round-hdr">Final</div>
+        <div class="round-hdr">Semi-finals</div>
+        <div class="round-hdr">Quarter-finals</div>
+        <div class="round-hdr">Round of 16</div>
+
+        <div class="col" id="col-r16l">
+            <div class="match" id="m-r16L1"></div>
+            <div class="match" id="m-r16L2"></div>
+            <div class="match" id="m-r16L3"></div>
+            <div class="match" id="m-r16L4"></div>
+        </div>
+        <div class="col">
+            <div class="match" id="m-qfL1"></div>
+            <div class="match" id="m-qfL2"></div>
+        </div>
+        <div class="col">
+            <div class="match" id="m-sfL"></div>
+        </div>
+        <div class="center-col">
+            <div class="final-match" id="m-final"></div>
+            <div class="winner-label">Winner</div>
+            <div class="champ-name" id="champName">—</div>
+        </div>
+        <div class="col">
+            <div class="match" id="m-sfR"></div>
+        </div>
+        <div class="col">
+            <div class="match" id="m-qfR1"></div>
+            <div class="match" id="m-qfR2"></div>
+        </div>
+        <div class="col" id="col-r16r">
+            <div class="match" id="m-r16R1"></div>
+            <div class="match" id="m-r16R2"></div>
+            <div class="match" id="m-r16R3"></div>
+            <div class="match" id="m-r16R4"></div>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-bar">
+    <button class="reset-btn" id="resetBtn">↺ Reset All Picks</button>
+</div>
+
+<canvas id="confetti-canvas"></canvas>
+<div id="tip"></div>
+
+<script src="main.js"></script>
+</body>
+</html>
