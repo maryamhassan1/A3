@@ -1,0 +1,84 @@
+{
+  "R16": {
+    "r16L1": { "teams": ["PSG",             "Chelsea"],      "winner": "PSG"             },
+    "r16L2": { "teams": ["Liverpool",       "Galatasaray"],  "winner": "Liverpool"       },
+    "r16L3": { "teams": ["Real Madrid",     "Man City"],     "winner": "Real Madrid"     },
+    "r16L4": { "teams": ["Bayern Munich",   "Atalanta"],     "winner": "Bayern Munich"   },
+    "r16R1": { "teams": ["Barcelona",       "Newcastle"],    "winner": "Barcelona"       },
+    "r16R2": { "teams": ["Atletico Madrid", "Tottenham"],    "winner": "Atletico Madrid" },
+    "r16R3": { "teams": ["Sporting CP",     "Bodo/Glimt"],   "winner": "Sporting CP"     },
+    "r16R4": { "teams": ["Arsenal",         "Leverkusen"],   "winner": "Arsenal"         }
+  },
+  "QF_INITIAL": {
+    "qfL1": ["PSG",             "Liverpool"],
+    "qfL2": ["Real Madrid",     "Bayern Munich"],
+    "qfR1": ["Barcelona",       "Atletico Madrid"],
+    "qfR2": ["Sporting CP",     "Arsenal"]
+  },
+  "TEAM_DATA": {
+    "PSG": {
+      "fullName": "Paris Saint-Germain", "country": "France",
+      "ucl_titles": 1, "finals": 1,
+      "logo": "logos/psg.png",
+      "season": { "W": 4, "D": 2, "L": 2, "GF": 21, "GA": 11, "pos": "11th" },
+      "r16_result": "Beat Chelsea 8-2 on aggregate", "key_player": "Ousmane Dembele",
+      "color": "#003f7a"
+    },
+    "Liverpool": {
+      "fullName": "Liverpool FC", "country": "England",
+      "ucl_titles": 6, "finals": 9,
+      "logo": "logos/liverpool.png",
+      "season": { "W": 6, "D": 0, "L": 2, "GF": 20, "GA": 8, "pos": "3rd" },
+      "r16_result": "Beat Galatasaray 4-1 on aggregate", "key_player": "Mohamed Salah",
+      "color": "#c8102e"
+    },
+    "Real Madrid": {
+      "fullName": "Real Madrid CF", "country": "Spain",
+      "ucl_titles": 15, "finals": 18,
+      "logo": "logos/realmadrid.png",
+      "season": { "W": 5, "D": 0, "L": 3, "GF": 21, "GA": 12, "pos": "9th" },
+      "r16_result": "Beat Man City 5-1 on aggregate", "key_player": "Vinicius Jr",
+      "color": "#00529f"
+    },
+    "Bayern Munich": {
+      "fullName": "FC Bayern Munchen", "country": "Germany",
+      "ucl_titles": 6, "finals": 11,
+      "logo": "logos/bayernmunich.jpg",
+      "season": { "W": 7, "D": 0, "L": 1, "GF": 22, "GA": 8, "pos": "2nd" },
+      "r16_result": "Beat Atalanta 10-2 on aggregate", "key_player": "Harry Kane",
+      "color": "#dc052d"
+    },
+    "Barcelona": {
+      "fullName": "FC Barcelona", "country": "Spain",
+      "ucl_titles": 5, "finals": 11,
+      "logo": "logos/barcelona.jpg",
+      "season": { "W": 5, "D": 1, "L": 2, "GF": 22, "GA": 14, "pos": "5th" },
+      "r16_result": "Beat Newcastle 8-3 on aggregate", "key_player": "Lamine Yamal",
+      "color": "#a50044"
+    },
+    "Atletico Madrid": {
+      "fullName": "Atletico de Madrid", "country": "Spain",
+      "ucl_titles": 0, "finals": 3,
+      "logo": "logos/atleticomadrid.jpg",
+      "season": { "W": 4, "D": 1, "L": 3, "GF": 17, "GA": 15, "pos": "14th" },
+      "r16_result": "Beat Tottenham 7-5 on aggregate", "key_player": "Julian Alvarez",
+      "color": "#cb3524"
+    },
+    "Sporting CP": {
+      "fullName": "Sporting Clube de Portugal", "country": "Portugal",
+      "ucl_titles": 0, "finals": 0,
+      "logo": "logos/sportingcp.jpg",
+      "season": { "W": 5, "D": 1, "L": 2, "GF": 17, "GA": 11, "pos": "7th" },
+      "r16_result": "Beat Bodo/Glimt 5-3 on aggregate", "key_player": "Viktor Gyokeres",
+      "color": "#1a6b2c"
+    },
+    "Arsenal": {
+      "fullName": "Arsenal FC", "country": "England",
+      "ucl_titles": 0, "finals": 1,
+      "logo": "logos/arsenal.png",
+      "season": { "W": 8, "D": 0, "L": 0, "GF": 23, "GA": 4, "pos": "1st" },
+      "r16_result": "Beat Leverkusen 3-1 on aggregate", "key_player": "Gabriel Martinelli",
+      "color": "#ef0107"
+    }
+  }
+}

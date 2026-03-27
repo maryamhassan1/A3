@@ -3,13 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UCL 2025-26 Bracket Predictor</title>
+    <title>UCL 2025-26 Odds Predictor</title>
     <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>UEFA Champions League Bracket Predictor 2025-2026</h1>
+<h1>UEFA Champions League 2025-26 Odds Predictor</h1>
+<p class="subtitle">Win probabilities based on UCL group-stage form, goals scored, and titles. Click any match to see the probabilities, or click a team to select a winner.</p>
+
+<div class="legend">
+    <div class="legend-item">
+        <span class="legend-dot" style="background:#27ae60"></span>
+        <span><strong>Form</strong> Points per game in the UCL group stage (W (wins), D (draws), L (losses))</span>
+    </div>
+    <div class="legend-item">
+        <span class="legend-dot" style="background:#f39c12"></span>
+        <span><strong>Goals</strong> Goals scored as a share of total goals (attack vs defence)</span>
+    </div>
+    <div class="legend-item">
+        <span class="legend-dot" style="background:#1a4a99"></span>
+        <span><strong>UCL History</strong> All-time Champions League title count </span>
+    </div>
+</div>
+
+<div class="controls-bar">
+    <div class="control-group">
+        <span class="control-label">View odds by</span>
+        <div class="btn-row" id="mode-btns">
+<button class="mode-btn active" data-mode="all">All</button>
+<button class="mode-btn" data-mode="points">Points only</button>
+<button class="mode-btn" data-mode="goals">Goals only</button>
+<button class="mode-btn" data-mode="WINhistory">Win History only</button>
+        </div>
+    </div>
+    <div class="control-group">
+        <span class="control-label">Highlight country</span>
+        <div class="btn-row" id="country-btns">
+            <button class="country-btn active" data-country="">All</button>
+            <button class="country-btn" data-country="Spain">Spain</button>
+            <button class="country-btn" data-country="England">England</button>
+            <button class="country-btn" data-country="Germany">Germany</button>
+            <button class="country-btn" data-country="France">France</button>
+            <button class="country-btn" data-country="Portugal">Portugal</button>
+        </div>
+    </div>
+    <div id="mode-insight"></div>
+</div>
 
 <div class="bracket-wrap">
     <svg class="connectors" id="connSvg"></svg>
@@ -37,8 +77,8 @@
         </div>
         <div class="center-col">
             <div class="final-match" id="m-final"></div>
-            <div class="winner-label">Winner</div>
-            <div class="champ-name" id="champName">—</div>
+            <div class="winner-label">Champion</div>
+            <div class="champ-name" id="champName"></div>
         </div>
         <div class="col">
             <div class="match" id="m-sfR"></div>
@@ -56,8 +96,16 @@
     </div>
 </div>
 
+<div class="tourn-section">
+    <div class="section-hdr">Tournament Win Probability</div>
+    <div class="section-sub">Expected odds for each team to lift the trophy, computed across all possible bracket paths</div>
+    <div id="tourn-chart"></div>
+    <div class="data-source">Data: UEFA Champions League 2025-26 league phase final standings and Round of 16 results. Source: ESPN / UEFA. Probability model: weighted combination of points-per-game (45%), goals ratio (35%), and UCL title history (20%).</div>
+</div>
+
 <div class="bottom-bar">
-    <button class="reset-btn" id="resetBtn">↺ Reset All Picks</button>
+    <button class="simulate-btn" id="simulateBtn">&#9654; Simulate Tournament</button>
+    <button class="reset-btn" id="resetBtn">↺ Reset</button>
 </div>
 
 <canvas id="confetti-canvas"></canvas>

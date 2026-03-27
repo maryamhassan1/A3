@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap');
 
 :root {
-    --bg:     #ffffff;
+    --bg:     #f5f7f2;
     --card:   #f4f6f9;
     --border: #dde3ed;
     --muted:  #9aaabb;
@@ -12,7 +12,18 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    background: var(--bg);
+    background-color: #f5f7f2;
+    background-image:
+        linear-gradient(to right, rgba(0,80,0,0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,80,0,0.08) 1px, transparent 1px),
+        repeating-linear-gradient(
+            to bottom,
+            rgba(0,90,0,0.03) 0px,
+            rgba(0,90,0,0.03) 80px,
+            rgba(0,110,0,0.06) 80px,
+            rgba(0,110,0,0.06) 160px
+        );
+    background-size: 100% 100%, 100% 100%, 100% 160px;
     font-family: 'Barlow', system-ui, sans-serif;
     color: var(--text);
     min-height: 100vh;
@@ -40,8 +51,10 @@ h1 {
 .bracket-wrap {
     position: relative;
     width: 100%;
-    max-width: 1100px;
+    max-width: 1300px;
     margin: 0 auto;
+    overflow-x: auto;
+    min-width: 900px;
 }
 
 .connectors {
@@ -54,12 +67,13 @@ h1 {
 
 .bracket-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 120px 1fr 1fr 1fr;
-    gap: 0 16px;
+    grid-template-columns: minmax(155px,1fr) minmax(155px,1fr) minmax(155px,1fr) 140px minmax(155px,1fr) minmax(155px,1fr) minmax(155px,1fr);
+    gap: 0 14px;
     padding: 32px 0 0;
     min-height: 560px;
     align-items: stretch;
     width: 100%;
+    min-width: 900px;
 }
 
 .col {
@@ -94,28 +108,57 @@ h1 {
     width: 100%;
 }
 
+/* ── TEAM ROWS ── */
 .team-row {
     display: flex;
     align-items: center;
-    gap: 7px;
-    padding: 8px 10px;
+    gap: 4px;
+    padding: 7px 8px;
     cursor: pointer;
     transition: background 0.18s;
-    min-height: 36px;
+    min-height: 40px;
+    overflow: hidden;
 }
-.team-row:first-child { border-bottom: 1px solid var(--border); }
+.team-row.no-click:first-child { border-bottom: 1px solid var(--border); }
 .team-row:hover:not(.empty):not(.no-click) { background: rgba(0,0,0,0.04); }
+.team-row.no-click { cursor: default; }
+
+/* ── LOGO ── */
+.team-logo {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* ── NAME + PCT COLUMN ── */
+.team-name-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    overflow: hidden;
+}
 
 .team-label {
     font-family: 'Barlow Condensed', system-ui, sans-serif;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 700;
-    flex: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     transition: color 0.22s;
     color: #1a4a99;
+}
+
+.team-pct {
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #9aaabb;
+    transition: opacity 0.3s;
+    line-height: 1;
 }
 
 .team-tick {
@@ -126,12 +169,107 @@ h1 {
     flex-shrink: 0;
 }
 
+/* ── WINNER / LOSER / EMPTY STATES ── */
 .team-row.winner .team-label { color: #cc0000; font-weight: 700; }
 .team-row.winner .team-tick  { opacity: 1; }
+.team-row.winner .team-pct   { color: #cc0000; }
 .team-row.loser  .team-label { color: var(--dim); font-weight: 400; text-decoration: line-through; }
+.team-row.loser  .team-pct   { color: #c8d4e0; }
 .team-row.empty  { cursor: default; }
 .team-row.empty  .team-label { color: var(--muted); font-style: italic; font-size: 11px; }
-.team-row.no-click { cursor: default; }
+
+/* ── STATS HINT ── */
+.team-form-note {
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #9aaabb;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.team-row.has-stats { cursor: pointer; }
+.team-row.has-stats:hover .team-label {
+    text-decoration: underline;
+    text-decoration-color: rgba(0,0,0,0.2);
+}
+
+/* ── INFO BUTTON ── */
+.info-btn {
+    background: none;
+    border: none;
+    color: #9aaabb;
+    font-size: 13px;
+    cursor: pointer;
+    margin-left: auto;
+    padding: 0 2px;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 0.2s, color 0.2s;
+    flex-shrink: 0;
+    font-family: sans-serif;
+}
+.team-row:hover .info-btn { opacity: 1; }
+.info-btn:hover { color: #cc0000; }
+
+/* ── PROBABILITY SPLIT BAR ── */
+.prob-split {
+    display: flex;
+    height: 5px;
+    width: 100%;
+    transition: opacity 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+.prob-split:hover { height: 8px; }
+
+.prob-a, .prob-b {
+    height: 100%;
+    transition: width 0.4s ease, background 0.4s ease;
+}
+
+.prob-hint {
+    position: absolute;
+    right: 6px;
+    top: -16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #9aaabb;
+    opacity: 0.6;
+    pointer-events: none;
+    white-space: nowrap;
+}
+.prob-split:hover .prob-hint { opacity: 1; }
+
+/* ── MATCH BADGES ── */
+.match-badge {
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    display: block;
+    min-height: 0;
+    transition: all 0.2s;
+}
+.match-badge:empty { padding: 0; }
+
+.badge-tossup {
+    background: #fff8e1;
+    color: #e67e00;
+    border-bottom: 1px solid #ffe0a0;
+}
+.badge-fav {
+    background: #fff0f0;
+    color: #cc0000;
+    border-bottom: 1px solid #ffd0d0;
+}
 
 /* ── CENTER COLUMN ── */
 .center-col {
@@ -175,6 +313,23 @@ h1 {
     transition: color 0.3s;
 }
 
+/* ── DECIDING ANIMATION ── */
+@keyframes deciding-pulse {
+    0%   { box-shadow: 0 0 0 0   rgba(204,0,0,0.5); border-color: #cc0000; }
+    50%  { box-shadow: 0 0 0 8px rgba(204,0,0,0.15); }
+    100% { box-shadow: 0 0 0 0   rgba(204,0,0,0); border-color: var(--border); }
+}
+.match.is-deciding { animation: deciding-pulse 0.75s ease-in-out; }
+
+/* ── CONFETTI ── */
+#confetti-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+}
+
 /* ── TOOLTIP ── */
 #tip {
     position: fixed;
@@ -193,38 +348,20 @@ h1 {
 }
 .tip-name { color: #cc0000; font-weight: 700; font-size: 12px; }
 .tip-info { color: #334455; }
-
-/* ── BOTTOM BAR ── */
-.bottom-bar {
-    margin-top: 22px;
+.tip-factors {
     display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.reset-btn {
-    padding: 7px 22px;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    border-radius: 20px;
-    cursor: pointer;
+    gap: 10px;
+    margin-top: 5px;
     font-size: 10px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    transition: all 0.2s;
+    color: #6b7f96;
 }
-.reset-btn:hover { border-color: #cc0000; color: #cc0000; }
-
-/* ── CONFETTI ── */
-#confetti-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 9998;
+.tip-factors b { color: #1a2535; }
+.tip-cta {
+    font-size: 9px;
+    color: #b0bcc8;
+    margin-top: 6px;
+    letter-spacing: 0.3px;
+    font-style: italic;
 }
 
 /* ── STATS PANEL ── */
@@ -244,15 +381,11 @@ h1 {
     box-shadow: -6px 0 24px rgba(0,0,0,0.08);
     box-sizing: border-box;
 }
-
-#stats-panel.open {
-    right: 0;
-}
+#stats-panel.open { right: 0; }
 
 #stats-close {
     position: absolute;
-    top: 14px;
-    right: 16px;
+    top: 14px; right: 16px;
     background: none;
     border: none;
     color: #9aaabb;
@@ -266,10 +399,7 @@ h1 {
 }
 #stats-close:hover { color: #1a2535; background: #f4f6f9; }
 
-#stats-header {
-    margin-bottom: 18px;
-    padding-right: 28px;
-}
+#stats-header { margin-bottom: 18px; padding-right: 28px; }
 
 #stats-name {
     font-family: 'Barlow Condensed', sans-serif;
@@ -291,7 +421,6 @@ h1 {
     font-weight: 600;
 }
 
-/* Stat Badges */
 #stats-titles-row {
     display: flex;
     gap: 8px;
@@ -326,7 +455,6 @@ h1 {
     font-weight: 600;
 }
 
-/* Section titles */
 .stats-section-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 11px;
@@ -339,7 +467,6 @@ h1 {
     font-weight: 700;
 }
 
-/* Text content */
 #stats-r16 {
     font-family: 'Barlow', sans-serif;
     font-size: 13px;
@@ -356,34 +483,257 @@ h1 {
     letter-spacing: 0.5px;
 }
 
-/* Charts */
-#wdl-chart svg, #goals-chart svg {
-    overflow: visible;
+#wdl-chart svg, #goals-chart svg { overflow: visible; }
+
+/* ── MATCH PANEL ── */
+#panel-match { display: none; }
+
+#match-panel-hdr { margin-bottom: 4px; padding-right: 28px; }
+
+#match-panel-teams {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #1a2535;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    line-height: 1.1;
 }
 
-/* R16 rows with stats clickable */
-.team-row.has-stats {
-    cursor: pointer;
-}
-.team-row.has-stats:hover .team-label {
-    text-decoration: underline;
-    text-decoration-color: rgba(0,0,0,0.2);
-}
-
-/* Info button */
-.info-btn {
-    background: none;
-    border: none;
+#match-panel-round {
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
     color: #9aaabb;
-    font-size: 13px;
-    cursor: pointer;
-    margin-left: auto;
-    padding: 0 2px;
-    line-height: 1;
-    opacity: 0;
-    transition: opacity 0.2s, color 0.2s;
-    flex-shrink: 0;
-    font-family: sans-serif;
+    margin-top: 3px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
 }
-.team-row:hover .info-btn { opacity: 1; }
-.info-btn:hover { color: #cc0000; }
+
+.model-note {
+    font-family: 'Barlow', sans-serif;
+    font-size: 10px;
+    color: #9aaabb;
+    margin-top: 14px;
+    line-height: 1.6;
+    border-top: 1px solid #edf0f5;
+    padding-top: 10px;
+}
+
+.model-explainer {
+    font-family: 'Barlow', sans-serif;
+    font-size: 12px;
+    color: #4a5c6e;
+    line-height: 1.6;
+}
+
+.factor-empty {
+    font-family: 'Barlow', sans-serif;
+    font-size: 13px;
+    color: #9aaabb;
+    padding: 16px 0;
+    font-style: italic;
+}
+
+/* ── SUBTITLE ── */
+.subtitle {
+    font-family: 'Barlow', system-ui, sans-serif;
+    font-size: 15px;
+    color: #1a2535;
+    text-align: center;
+    max-width: 640px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+/* ── LEGEND ── */
+.legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 780px;
+    margin-bottom: 28px;
+    background: #f4f6f9;
+    border: 1px solid #dde3ed;
+    border-radius: 10px;
+    padding: 12px 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-family: 'Barlow', system-ui, sans-serif;
+    font-size: 13px;
+    color: #1a2535;
+    line-height: 1.5;
+    flex: 1;
+    min-width: 200px;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.legend-item strong { font-weight: 700; }
+
+/* ── CONTROLS BAR ── */
+.controls-bar {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+    background: #f4f6f9;
+    border: 1px solid #dde3ed;
+    border-radius: 10px;
+    padding: 14px 20px;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.control-label {
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #9aaabb;
+    white-space: nowrap;
+    min-width: 110px;
+}
+
+.btn-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.mode-btn, .country-btn {
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    padding: 5px 12px;
+    border: 1px solid #dde3ed;
+    border-radius: 20px;
+    background: #fff;
+    color: #6b7f96;
+    cursor: pointer;
+    transition: all 0.18s;
+}
+.mode-btn:hover, .country-btn:hover { border-color: #cc0000; color: #cc0000; }
+.mode-btn.active, .country-btn.active { background: #cc0000; border-color: #cc0000; color: #fff; }
+
+#mode-insight {
+    font-family: 'Barlow', system-ui, sans-serif;
+    font-size: 12px;
+    color: #4a5c6e;
+    line-height: 1.5;
+    padding-top: 6px;
+    border-top: 1px solid #dde3ed;
+    margin-top: 4px;
+    font-style: italic;
+    min-height: 18px;
+    transition: opacity 0.3s;
+}
+
+/* ── COUNTRY FILTER ── */
+.team-row.country-hi {
+    background: rgba(204, 0, 0, 0.05);
+    border-left: 3px solid #cc0000;
+}
+.team-row.country-lo { opacity: 0.35; }
+
+/* ── TOURNAMENT CHART SECTION ── */
+.tourn-section {
+    width: 100%;
+    max-width: 760px;
+    margin: 28px auto 0;
+    padding: 0 0 8px;
+}
+
+.section-hdr {
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #1a2535;
+    margin-bottom: 4px;
+}
+
+.section-sub {
+    font-family: 'Barlow', system-ui, sans-serif;
+    font-size: 12px;
+    color: #9aaabb;
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+#tourn-chart { width: 100%; }
+#tourn-chart svg { overflow: visible; }
+
+.data-source {
+    font-family: 'Barlow', system-ui, sans-serif;
+    font-size: 10px;
+    color: #b0bcc8;
+    margin-top: 14px;
+    line-height: 1.5;
+}
+
+/* ── BOTTOM BAR ── */
+.bottom-bar {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.simulate-btn {
+    padding: 9px 26px;
+    background: #cc0000;
+    border: none;
+    color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.1s;
+}
+.simulate-btn:hover  { background: #aa0000; }
+.simulate-btn:active { transform: scale(0.97); }
+.simulate-btn:disabled { background: #dde3ed; color: #9aaabb; cursor: default; }
+
+.reset-btn {
+    padding: 9px 20px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+.reset-btn:hover { border-color: #cc0000; color: #cc0000; }
